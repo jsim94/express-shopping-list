@@ -1,18 +1,12 @@
-global.items =[
-  {
-    name:"Pickles",
-    price: 3.50
-  }
-]
-
+global.items = [];
 
 function findItemIndex(name) {
-  return items.findIndex((obj)=>{
-    return obj.name === itemName;
-  })
+  return items.findIndex((obj) => {
+    return obj.name.toLowerCase() === name.toLowerCase();
+  });
 }
 
 module.exports = {
   items,
-  findItemIndex
-}
+  findItemIndex,
+};

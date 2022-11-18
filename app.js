@@ -1,13 +1,16 @@
-const express = require('express')
+const express = require("express");
+const morgan = require("morgan");
 
-const { routes } = require('./routes')
-const { items } = require('./fakeDb')
-const ExpressError = require('./expressError')
+const { routes } = require("./routes");
+const { items } = require("./fakeDb");
+const ExpressError = require("./expressError");
 
-const app = express()
+const app = express();
 
-app.use('/', routes)
-
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/", routes);
 
 app.use(function (req, res, next) {
   const notFoundError = new ExpressError("Not Found", 404);
@@ -25,11 +28,4 @@ app.use(function (err, req, res, next) {
   });
 });
 
-
-app.listen(3000,()=>{
-  console.log("App started on port 3000")
-})
-
-module.exports = {
- app
-}
+module.exports = app;
